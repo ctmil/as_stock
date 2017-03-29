@@ -23,7 +23,7 @@ class as_stock_quant(osv.osv):
 	_columns = {
 		'location_id': fields.many2one('stock.location','Location'),
 		'company_id': fields.many2one('res.company','Company'),
-		'product_id': fields.many2one('product.product','Company'),
+		'product_id': fields.many2one('product.product','Product'),
 		'qty': fields.integer('Qty'),
 		}
 
