@@ -27,8 +27,6 @@ class as_stock_quant(osv.osv):
 		'qty': fields.integer('Qty'),
 		}
 
-	_order  = 'mail_message_id desc, date desc'
-	
 	def init(self, cr):
         	tools.sql.drop_view_if_exists(cr, 'as_stock_quant')
 	        cr.execute("""
