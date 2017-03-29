@@ -2,6 +2,24 @@
 <openerp>
   <data>
 
+        <record id="view_as_stock_quant_filter" model="ir.ui.view">
+            <field name="name">as.stock.quant.filter</field>
+            <field name="model">as.stock.quant</field>
+            <field name="arch" type="xml">
+                <search string="Search Inventory">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="product_id" />
+                    <field name="location_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Ubicación" domain="[]" context="{'group_by':'location_id'}" help="Physical Inventories by Location"/>
+                        <filter string="Company" domain="[]" context="{'group_by':'company_id'}" help="Physical Inventories by Company"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product_id'}" help="Physical Inventories by Product"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="as_stock_quant_tree">
             <field name="name">as.stock.quant.tree</field>
             <field name="model">as.stock.quant</field>
@@ -21,7 +39,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <!-- field name="domain">['|',('author_id', '=', user.partner_id.id)]</field -->
-            <!-- field name="search_view_id" ref="mail.view_message_search"/ -->
+            <field name="search_view_id" ref="view_as_stock_quant_filter"/>
         </record>
 
 
