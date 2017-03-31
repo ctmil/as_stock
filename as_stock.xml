@@ -48,6 +48,54 @@
 		action="as_stock_quant_action"
                 name="Consulta Stock" />
 
+        <record id="view_as_stock_move_filter" model="ir.ui.view">
+            <field name="name">as.stock.move.filter</field>
+            <field name="model">as.stock.move</field>
+            <field name="arch" type="xml">
+                <search string="Search Moves">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="date" />
+                    <field name="name" />
+                    <field name="product_id" />
+                    <field name="loc_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Ubicación" domain="[]" context="{'group_by':'loc_id'}" help="Physical Inventories by Location"/>
+                        <filter string="Company" domain="[]" context="{'group_by':'company_id'}" help="Physical Inventories by Company"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product_id'}" help="Physical Inventories by Product"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="as_stock_move_tree">
+            <field name="name">as.stock.move.tree</field>
+            <field name="model">as.stock.move</field>
+            <field name="arch" type="xml">
+		<tree string="Mensajes" >
+			<field name="company_id" />
+			<field name="name" />
+			<field name="date" />
+			<field name="loc_id" />
+			<field name="product_id" />
+			<field name="cantidad" />
+		</tree>
+            </field>
+        </record>
+
+        <record id="as_stock_move_action" model="ir.actions.act_window">
+            <field name="name">Consulta Movimientos</field>
+            <field name="res_model">as.stock.move</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- field name="domain">['|',('author_id', '=', user.partner_id.id)]</field -->
+            <field name="search_view_id" ref="view_as_stock_move_filter"/>
+        </record>
+
+        <menuitem id="menuitem_as_stock_move"
+                parent="stock.menu_warehouse_report"
+		action="as_stock_move_action"
+                name="Consulta Movimientos" />
 
    </data>
 </openerp>
