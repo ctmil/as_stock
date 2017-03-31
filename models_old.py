@@ -66,6 +66,7 @@ class as_stock_move(osv.osv):
 					from stock_move a inner join stock_location b on a.location_id = b.id inner join stock_location c on c.id = a.location_dest_id 
 					where (b.usage = 'internal' and c.usage <> 'internal') or (b.usage <> 'internal' and c.usage = 'internal') 
 					and a.state = 'done'
+					and a.location_id <> a.location_dest_id
 				union
 				select a.id as id,a.picking_id as picking_id,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
 					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
@@ -74,6 +75,7 @@ class as_stock_move(osv.osv):
 					from stock_move a inner join stock_location b on a.location_id = b.id inner join stock_location c on c.id = a.location_dest_id 
 					where (b.usage = 'internal' and c.usage = 'internal') 
 					and a.state = 'done'
+					and a.location_id <> a.location_dest_id
 				union
 				select a.id as id,a.picking_id as picking_id,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
 					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
@@ -82,4 +84,5 @@ class as_stock_move(osv.osv):
 					from stock_move a inner join stock_location b on a.location_id = b.id inner join stock_location c on c.id = a.location_dest_id 
 					where (b.usage = 'internal' and c.usage = 'internal') 
 					and a.state = 'done'
+					and a.location_id <> a.location_dest_id
 	        	""")
