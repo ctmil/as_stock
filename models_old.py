@@ -42,7 +42,7 @@ class as_stock_move(osv.osv):
 	_auto = False
 
 	_columns = {
-		'name': fields.char('Name'),
+		'picking_id': fields.many2one('stock.picking','Reference'),
 		'date': fields.date('Date'),
 		'company_id': fields.many2one('res.company','Company'),
 		'product_id': fields.many2one('product.product','Product'),
@@ -59,7 +59,7 @@ class as_stock_move(osv.osv):
         	tools.sql.drop_view_if_exists(cr, 'as_stock_move')
 	        cr.execute("""
 			create view as_stock_move as 
-				select a.id as id,a.name,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
+				select a.id as id,a.picking_id as picking_id,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
 					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
 					case b.usage when 'internal' then a.product_uom_qty * (-1) else a.product_uom_qty end as cantidad, 
 					case b.usage when 'internal' then a.location_id else a.location_dest_id end as loc_id 
@@ -67,7 +67,7 @@ class as_stock_move(osv.osv):
 					where (b.usage = 'internal' and c.usage <> 'internal') or (b.usage = 'internal' and c.usage <> 'internal') 
 					and a.state = 'done'
 				union
-				select a.id as id,a.name,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
+				select a.id as id,a.picking_id as picking_id,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
 					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
 					a.product_uom_qty * (-1) as cantidad, 
 					a.location_id as loc_id 
@@ -75,7 +75,7 @@ class as_stock_move(osv.osv):
 					where (b.usage = 'internal' and c.usage = 'internal') 
 					and a.state = 'done'
 				union
-				select a.id as id,a.name,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
+				select a.id as id,a.picking_id as picking_id,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
 					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
 					a.product_uom_qty as cantidad, 
 					a.location_dest_id as loc_id 

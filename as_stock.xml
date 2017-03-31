@@ -55,7 +55,7 @@
                 <search string="Search Moves">
                     <field name="company_id" groups="base.group_multi_company"/>
                     <field name="date" />
-                    <field name="name" />
+                    <field name="picking_id" />
                     <field name="product_id" />
                     <field name="loc_id" />
                     <group expand="0" string="Group By">
@@ -72,9 +72,9 @@
             <field name="name">as.stock.move.tree</field>
             <field name="model">as.stock.move</field>
             <field name="arch" type="xml">
-		<tree string="Mensajes" >
+		<tree string="Movimientos" >
 			<field name="company_id" />
-			<field name="name" />
+			<field name="picking_id" />
 			<field name="date" />
 			<field name="loc_id" />
 			<field name="product_id" />
