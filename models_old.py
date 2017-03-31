@@ -60,9 +60,26 @@ class as_stock_move(osv.osv):
 	        cr.execute("""
 			create view as_stock_move as 
 				select a.id as id,a.name,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
-				a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
-				case b.usage when 'internal' then a.product_uom_qty * (-1) else a.product_uom_qty end as cantidad, 
-				case b.usage when 'internal' then a.location_id else a.location_dest_id end as loc_id 
-				from stock_move a inner join stock_location b on a.location_id = b.id inner join stock_location c on c.id = a.location_dest_id 
-				where (b.usage = 'internal' or c.usage = 'internal') and a.state = 'done'
+					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
+					case b.usage when 'internal' then a.product_uom_qty * (-1) else a.product_uom_qty end as cantidad, 
+					case b.usage when 'internal' then a.location_id else a.location_dest_id end as loc_id 
+					from stock_move a inner join stock_location b on a.location_id = b.id inner join stock_location c on c.id = a.location_dest_id 
+					where (b.usage = 'internal' and c.usage <> 'internal') or (b.usage = 'internal' and c.usage <> 'internal') 
+					and a.state = 'done'
+				union
+				select a.id as id,a.name,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
+					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
+					a.product_uom_qty * (-1) as cantidad, 
+					a.location_id as loc_id 
+					from stock_move a inner join stock_location b on a.location_id = b.id inner join stock_location c on c.id = a.location_dest_id 
+					where (b.usage = 'internal' and c.usage = 'internal') 
+					and a.state = 'done'
+				union
+				select a.id as id,a.name,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
+					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
+					a.product_uom_qty as cantidad, 
+					a.location_dest_id as loc_id 
+					from stock_move a inner join stock_location b on a.location_id = b.id inner join stock_location c on c.id = a.location_dest_id 
+					where (b.usage = 'internal' and c.usage = 'internal') 
+					and a.state = 'done'
 	        	""")
