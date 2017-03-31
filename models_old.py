@@ -64,7 +64,7 @@ class as_stock_move(osv.osv):
 					case b.usage when 'internal' then a.product_uom_qty * (-1) else a.product_uom_qty end as cantidad, 
 					case b.usage when 'internal' then a.location_id else a.location_dest_id end as loc_id 
 					from stock_move a inner join stock_location b on a.location_id = b.id inner join stock_location c on c.id = a.location_dest_id 
-					where (b.usage = 'internal' and c.usage <> 'internal') or (b.usage = 'internal' and c.usage <> 'internal') 
+					where (b.usage = 'internal' and c.usage <> 'internal') or (b.usage <> 'internal' and c.usage = 'internal') 
 					and a.state = 'done'
 				union
 				select a.id as id,a.picking_id as picking_id,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
