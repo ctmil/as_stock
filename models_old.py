@@ -77,7 +77,8 @@ class as_stock_move(osv.osv):
 					and a.state = 'done'
 					and a.location_id <> a.location_dest_id
 				union
-				select a.id*10000 as id,a.picking_id as picking_id,a.date,a.company_id as company_id,a.product_id as product_id,a.location_id as location_id,b.usage as location_usage,
+				select a.picking_id * 100000 + a.id as id,a.picking_id as picking_id,a.date,a.company_id as company_id,a.product_id as product_id,
+					a.location_id as location_id,b.usage as location_usage,
 					a.location_dest_id as location_dest_id,c.usage as location_dest_usage,a.product_uom_qty as product_uom_qty,
 					a.product_uom_qty as cantidad, 
 					a.location_dest_id as loc_id 
