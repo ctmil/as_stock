@@ -44,7 +44,7 @@
 
 
         <menuitem id="menuitem_as_stock_quant"
-                parent="stock.menu_warehouse_report"
+                parent="stock.menu_stock_inventory_control"
 		action="as_stock_quant_action"
                 name="Consulta Stock" />
 
@@ -93,7 +93,7 @@
         </record>
 
         <menuitem id="menuitem_as_stock_move"
-                parent="stock.menu_warehouse_report"
+                parent="stock.menu_stock_inventory_control"
 		action="as_stock_move_action"
                 name="Consulta Movimientos" />
 
