@@ -97,5 +97,16 @@
 		action="as_stock_move_action"
                 name="Consulta Movimientos" />
 
+        <record model="ir.ui.view" id="as_stock_view_inventory_form">
+            <field name="name">as.stock.view.inventory.form</field>
+            <field name="model">stock.inventory</field>
+	    <field name="inherit_id" ref="stock.view_inventory_form" />
+            <field name="arch" type="xml">
+		<button name="action_done" position="attributes">
+			<attribute name="groups">stock.group_stock_user</attribute>
+		</button>
+	    </field>
+	</record>
+
    </data>
 </openerp>
