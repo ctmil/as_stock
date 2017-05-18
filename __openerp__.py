@@ -24,6 +24,7 @@
     "init_xml": [],
     "data": [
 	'as_stock.xml',
+	'wizard/wizard_view.xml',
 	'security/ir.model.access.csv'
     ],
     'demo_xml': [

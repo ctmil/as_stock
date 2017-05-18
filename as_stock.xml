@@ -2,6 +2,18 @@
 <openerp>
   <data>
 
+        <record model="ir.ui.view" id="as_stock_view_move_form">
+            <field name="name">as.stock.view.move.form</field>
+            <field name="model">stock.move</field>
+	    <field name="inherit_id" ref="stock.view_move_form" />
+            <field name="arch" type="xml">
+		<field name="state" position="before">
+			<button name="change_location" string="Cambiar depósito" 
+				states="draft,waiting,confirmed,assigned" type="object" />
+		</field>
+            </field>
+        </record>
+
         <record id="view_as_stock_quant_filter" model="ir.ui.view">
             <field name="name">as.stock.quant.filter</field>
             <field name="model">as.stock.quant</field>
@@ -97,7 +109,7 @@
 		action="as_stock_move_action"
                 name="Consulta Movimientos" />
 
-        <record model="ir.ui.view" id="as_stock_view_inventory_form">
+        <!-- record model="ir.ui.view" id="as_stock_view_inventory_form">
             <field name="name">as.stock.view.inventory.form</field>
             <field name="model">stock.inventory</field>
 	    <field name="inherit_id" ref="stock.view_inventory_form" />
@@ -106,7 +118,7 @@
 			<attribute name="groups">stock.group_stock_user</attribute>
 		</button>
 	    </field>
-	</record>
+	</record -->
 
    </data>
 </openerp>

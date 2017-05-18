@@ -1,0 +1,19 @@
+<openerp>
+        <data>
+
+                <record id="stock_change_location" model="ir.ui.view">
+                        <field name="name">Cambiar Deposito</field>
+                        <field name="model">stock.change.location</field>
+                        <field name="arch" type="xml">
+                                <form string="Cambiar Deposito">
+                                        <group>
+                                                <field name="picking_type_id" />
+                                        </group>
+                                        <button name="confirm_line" type="object" string="OK" />
+                                </form>
+                        </field>
+                </record>
+
+        </data>
+</openerp>
+
